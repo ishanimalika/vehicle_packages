@@ -1,0 +1,35 @@
+@extends('admin.layout')
+
+@section('content')
+<div class="container mt-4">
+    <h2>Edit Package</h2>
+
+    <form action="{{ route('packages.update', $package->id) }}" method="POST">
+        @csrf
+        @method('PUT')
+
+        <div class="mb-3">
+            <label>Package Name</label>
+            <input type="text" name="package_name" class="form-control" value="{{ $package->package_name }}" required>
+        </div>
+
+        <div class="mb-3">
+            <label>Description</label>
+            <textarea name="description" class="form-control" rows="3" required>{{ $package->description }}</textarea>
+        </div>
+
+        <div class="mb-3">
+            <label>Price (LKR)</label>
+            <input type="number" name="price" class="form-control" value="{{ $package->price }}" required>
+        </div>
+
+        <div class="mb-3">
+            <label>Duration</label>
+            <input type="text" name="duration" class="form-control" value="{{ $package->duration }}" required>
+        </div>
+
+        <button class="btn btn-primary">Update Package</button>
+        <a href="{{ route('packages.index') }}" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
+@endsection

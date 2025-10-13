@@ -16,8 +16,9 @@
                 <th>ID</th>
                 <th>Package Name</th>
                 <th>Price (LKR)</th>
-                <th>Duration</th>
                 <th>Description</th>
+                <th>Vehicle</th>
+                <th>Driver</th>
                 <th>Action</th>
             </tr>
         </thead>
@@ -25,10 +26,11 @@
             @forelse ($packages as $package)
                 <tr>
                     <td>{{ $package->id }}</td>
-                    <td>{{ $package->package_name }}</td>
+                    <td>{{ $package->title }}</td>
                     <td>{{ number_format($package->price, 2) }}</td>
-                    <td>{{ $package->duration }}</td>
                     <td>{{ $package->description }}</td>
+                    <td>{{ $package->vehicle->name ?? 'N/A' }}</td>
+                    <td>{{ $package->driver->name ?? 'N/A' }}</td>
                     <td>
                         <a href="{{ route('packages.edit', $package->id) }}" class="btn btn-sm btn-warning">Edit</a>
                         <form action="{{ route('packages.destroy', $package->id) }}" method="POST" style="display:inline;">
@@ -39,7 +41,7 @@
                     </td>
                 </tr>
             @empty
-                <tr><td colspan="6" class="text-center">No packages found</td></tr>
+                <tr><td colspan="8" class="text-center">No packages found</td></tr>
             @endforelse
         </tbody>
     </table>

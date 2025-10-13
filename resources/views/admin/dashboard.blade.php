@@ -14,10 +14,40 @@
 
 <div class="container mt-4">
     <h3>Welcome to Admin Dashboard</h3>
-    <div class="list-group">
-        <a href="{{ route('vehicles.index') }}" class="list-group-item">Manage Vehicles</a>
-        <a href="{{ route('packages.index') }}" class="list-group-item">Manage Packages</a>
-        <a href="{{ route('drivers.index') }}" class="list-group-item">Manage Drivers</a>
+
+    <div class="row mt-4">
+        <!-- Vehicles -->
+        <div class="col-md-4">
+            <div class="card text-white bg-primary mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">Total Vehicles</h5>
+                    <p class="card-text fs-2">{{ $totalVehicles }}</p>
+                    <a href="{{ route('vehicles.index') }}" class="btn btn-light btn-sm">Manage Vehicles</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Packages -->
+        <div class="col-md-4">
+            <div class="card text-white bg-success mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">Total Packages</h5>
+                    <p class="card-text fs-2">{{ $totalPackages }}</p>
+                    <a href="{{ route('packages.index') }}" class="btn btn-light btn-sm">Manage Packages</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Drivers -->
+        <div class="col-md-4">
+            <div class="card text-white bg-warning mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">Total Drivers</h5>
+                    <p class="card-text fs-2">{{ $totalDrivers }}</p>
+                    <a href="{{ route('drivers.index') }}" class="btn btn-light btn-sm">Manage Drivers</a>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 </body>

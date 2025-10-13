@@ -6,9 +6,10 @@
 
     <form action="{{ route('packages.store') }}" method="POST">
         @csrf
+
         <div class="mb-3">
             <label>Package Name</label>
-            <input type="text" name="package_name" class="form-control" required>
+            <input type="text" name="title" class="form-control" required>
         </div>
 
         <div class="mb-3">
@@ -22,8 +23,23 @@
         </div>
 
         <div class="mb-3">
-            <label>Duration</label>
-            <input type="text" name="duration" class="form-control" placeholder="e.g. 3 Days" required>
+            <label>Select Vehicle</label>
+            <select name="vehicle_id" class="form-control" required>
+                <option value="">-- Select Vehicle --</option>
+                @foreach($vehicles as $vehicle)
+                    <option value="{{ $vehicle->id }}">{{ $vehicle->name }}</option>
+                @endforeach
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label>Select Driver</label>
+            <select name="driver_id" class="form-control" required>
+                <option value="">-- Select Driver --</option>
+                @foreach($drivers as $driver)
+                    <option value="{{ $driver->id }}">{{ $driver->name }}</option>
+                @endforeach
+            </select>
         </div>
 
         <button class="btn btn-success">Save Package</button>

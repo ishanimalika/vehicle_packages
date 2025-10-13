@@ -8,30 +8,36 @@ use App\Models\Driver;
 
 class DriverController extends Controller
 {
-    // List all drivers
+    // Display all drivers
     public function index()
     {
         $drivers = Driver::all();
         return view('admin.drivers.index', compact('drivers'));
     }
 
-    // Show form to create new driver
+    // Show form to create a driver
     public function create()
     {
         return view('admin.drivers.create');
     }
 
-    // Store new driver
+    // Store a new driver
     public function store(Request $request)
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'license_number' => 'required|string|max:100',
+            'license_no' => 'required|string|max:100',
             'phone' => 'required|string|max:20',
-            'email' => 'nullable|email|max:255',
+            'photo' => 'nullable|image|max:2048',
         ]);
 
-        Driver::create($request->all());
+        $data = $request->except('photo');
+
+        if ($request->hasFile('photo') && $request->file('photo')->isValid()) {
+            $data['photo'] = $request->file('photo')->store('drivers', 'public');
+        }
+
+        Driver::create($data);
 
         return redirect()->route('drivers.index')->with('success', 'Driver added successfully');
     }
@@ -47,12 +53,18 @@ class DriverController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'license_number' => 'required|string|max:100',
+            'license_no' => 'required|string|max:100',
             'phone' => 'required|string|max:20',
-            'email' => 'nullable|email|max:255',
+            'photo' => 'nullable|image|max:2048',
         ]);
 
-        $driver->update($request->all());
+        $data = $request->except('photo');
+
+        if ($request->hasFile('photo') && $request->file('photo')->isValid()) {
+            $data['photo'] = $request->file('photo')->store('drivers', 'public');
+        }
+
+        $driver->update($data);
 
         return redirect()->route('drivers.index')->with('success', 'Driver updated successfully');
     }

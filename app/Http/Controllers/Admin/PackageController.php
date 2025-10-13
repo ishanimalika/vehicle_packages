@@ -5,30 +5,35 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Package;
+use App\Models\Vehicle;
+use App\Models\Driver;
 
 class PackageController extends Controller
 {
-    // List all packages
+    // Display all packages
     public function index()
     {
-        $packages = Package::all();
+        $packages = Package::with('vehicle')->get(); // eager load vehicle
         return view('admin.packages.index', compact('packages'));
     }
 
-    // Show form to create new package
+    // Show form to create a package
     public function create()
     {
-        return view('admin.packages.create');
+        $vehicles = Vehicle::all();
+        $drivers = Driver::all();
+        return view('admin.packages.create', compact('vehicles', 'drivers'));
     }
 
-    // Store new package
+    // Store a new package
     public function store(Request $request)
     {
         $request->validate([
-            'package_name' => 'required|string|max:255',
+            'title' => 'required|string|max:255',
             'description' => 'required|string',
             'price' => 'required|numeric',
-            'duration' => 'required|string|max:100',
+            'vehicle_id' => 'required|exists:vehicles,id',
+            'driver_id' => 'nullable|exists:drivers,id',
         ]);
 
         Package::create($request->all());
@@ -39,17 +44,20 @@ class PackageController extends Controller
     // Show edit form
     public function edit(Package $package)
     {
-        return view('admin.packages.edit', compact('package'));
+        $vehicles = Vehicle::all();
+        $drivers = Driver::all();
+        return view('admin.packages.edit', compact('package', 'vehicles', 'drivers'));
     }
 
     // Update package
     public function update(Request $request, Package $package)
     {
         $request->validate([
-            'package_name' => 'required|string|max:255',
+            'title' => 'required|string|max:255',
             'description' => 'required|string',
             'price' => 'required|numeric',
-            'duration' => 'required|string|max:100',
+            'vehicle_id' => 'required|exists:vehicles,id',
+            'driver_id' => 'nullable|exists:drivers,id',
         ]);
 
         $package->update($request->all());

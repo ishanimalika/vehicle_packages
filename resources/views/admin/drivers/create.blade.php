@@ -4,7 +4,7 @@
 <div class="container mt-4">
     <h2>Add New Driver</h2>
 
-    <form action="{{ route('drivers.store') }}" method="POST">
+    <form action="{{ route('drivers.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
 
         <div class="mb-3">
@@ -14,7 +14,7 @@
 
         <div class="mb-3">
             <label>License Number</label>
-            <input type="text" name="license_number" class="form-control" required>
+            <input type="text" name="license_no" class="form-control" required>
         </div>
 
         <div class="mb-3">
@@ -23,8 +23,8 @@
         </div>
 
         <div class="mb-3">
-            <label>Email</label>
-            <input type="email" name="email" class="form-control">
+            <label>Driver Photo</label>
+            <input type="file" name="photo" class="form-control" accept="image/*">
         </div>
 
         <button class="btn btn-success">Save Driver</button>

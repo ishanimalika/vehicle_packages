@@ -10,14 +10,14 @@
         <div class="alert alert-success">{{ session('success') }}</div>
     @endif
 
-    <table class="table table-bordered">
+    <table class="table table-bordered align-middle">
         <thead>
             <tr>
                 <th>ID</th>
+                <th>Photo</th>
                 <th>Name</th>
                 <th>License Number</th>
                 <th>Phone</th>
-                <th>Email</th>
                 <th>Action</th>
             </tr>
         </thead>
@@ -25,10 +25,16 @@
             @forelse ($drivers as $driver)
                 <tr>
                     <td>{{ $driver->id }}</td>
+                    <td>
+                        @if($driver->photo)
+                            <img src="{{ asset('storage/' . $driver->photo) }}" width="60" class="rounded">
+                        @else
+                            <span class="text-muted">No Photo</span>
+                        @endif
+                    </td>
                     <td>{{ $driver->name }}</td>
-                    <td>{{ $driver->license_number }}</td>
+                    <td>{{ $driver->license_no }}</td>
                     <td>{{ $driver->phone }}</td>
-                    <td>{{ $driver->email }}</td>
                     <td>
                         <a href="{{ route('drivers.edit', $driver->id) }}" class="btn btn-sm btn-warning">Edit</a>
                         <form action="{{ route('drivers.destroy', $driver->id) }}" method="POST" style="display:inline;">
@@ -39,7 +45,7 @@
                     </td>
                 </tr>
             @empty
-                <tr><td colspan="6" class="text-center">No drivers found</td></tr>
+                <tr><td colspan="6" class="text-center text-muted">No drivers found</td></tr>
             @endforelse
         </tbody>
     </table>

@@ -12,4 +12,5 @@ class Driver extends Model
         'phone',
         'photo',
     ];
+
 }

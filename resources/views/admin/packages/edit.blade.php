@@ -4,7 +4,7 @@
 <div class="container mt-4">
     <h2>Edit Package</h2>
 
-    <form action="{{ route('packages.update', $package->id) }}" method="POST">
+    <form action="{{ route('packages.update', $package->id) }}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PUT')
 
@@ -24,8 +24,27 @@
         </div>
 
         <div class="mb-3">
-            <label>Duration</label>
-            <input type="text" name="duration" class="form-control" value="{{ $package->duration }}" required>
+            <label>Select Vehicle</label>
+            <select name="vehicle_id" class="form-control" required>
+                <option value="">-- Select Vehicle --</option>
+                @foreach($vehicles as $vehicle)
+                    <option value="{{ $vehicle->id }}" {{ $package->vehicle_id == $vehicle->id ? 'selected' : '' }}>
+                        {{ $vehicle->name }}
+                    </option>
+                @endforeach
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label>Select Driver</label>
+            <select name="driver_id" class="form-control" required>
+                <option value="">-- Select Driver --</option>
+                @foreach($drivers as $driver)
+                    <option value="{{ $driver->id }}" {{ $package->driver_id == $driver->id ? 'selected' : '' }}>
+                        {{ $driver->name }}
+                    </option>
+                @endforeach
+            </select>
         </div>
 
         <button class="btn btn-primary">Update Package</button>

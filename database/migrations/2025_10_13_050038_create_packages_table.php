@@ -17,6 +17,7 @@ return new class extends Migration
             $table->text('description');
             $table->decimal('price', 10, 2);
             $table->foreignId('vehicle_id')->constrained()->onDelete('cascade');
+            $table->foreignId('driver_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }

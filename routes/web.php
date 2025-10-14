@@ -6,16 +6,11 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\VehicleController;
 use App\Http\Controllers\Admin\PackageController;
 use App\Http\Controllers\Admin\DriverController;
-
-Route::get('/', function () {
-    return view('welcome');
-});
+use App\Http\Controllers\Frontend\PackageController as FrontendPackageController;
 
 
-
-// Public
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/', function() {
+    return view('home');
 });
 
 // Admin login/logout
@@ -30,3 +25,8 @@ Route::middleware(['adminauth'])->prefix('admin')->group(function () {
     Route::resource('/packages', PackageController::class);
     Route::resource('/drivers', DriverController::class);
 });
+
+
+Route::get('/packages', [FrontendPackageController::class, 'index'])->name('frontend.packages.index');
+Route::get('/packages/{package}', [FrontendPackageController::class, 'show'])->name('frontend.packages.show');
+

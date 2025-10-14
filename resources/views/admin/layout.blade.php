@@ -7,7 +7,7 @@
 <body>
 <nav class="navbar navbar-dark bg-dark">
     <div class="container">
-        <a class="navbar-brand" href="{{ route('admin.dashboard') }}">KDH Admin</a>
+        <a class="navbar-brand" href="{{ route('admin.dashboard') }}">GAGANA Tours Admin</a>
         <a class="btn btn-danger" href="{{ route('admin.logout') }}">Logout</a>
     </div>
 </nav>

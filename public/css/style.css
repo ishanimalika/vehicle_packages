@@ -85,8 +85,9 @@ footer {
 }
 
 /* Hero / Banner */
+
 .hero {
-    background: url('../images/banner.jpg') no-repeat center center;
+    background: url('../images/hero-bg.jpg') no-repeat center center/cover;
     background-size: cover;
     color: #fff;
     text-align: center;
@@ -104,6 +105,7 @@ footer {
     font-size: 1.2rem;
     text-shadow: 1px 1px 5px rgba(0,0,0,0.5);
 }
+
 
 /* Responsive adjustments */
 @media (max-width: 768px) {

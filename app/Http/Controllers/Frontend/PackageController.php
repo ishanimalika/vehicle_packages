@@ -15,7 +15,7 @@ class PackageController extends Controller
         // Eager load vehicle and driver for performance
         $packages = Package::with(['vehicle', 'driver'])->get();
 
-        return view('packages', compact('packages'));
+        return view('packages.index', compact('packages'));
     }
 
     /**
@@ -26,6 +26,6 @@ class PackageController extends Controller
         // Load related vehicle and driver
         $package->load(['vehicle', 'driver']);
 
-        return view('package_single', compact('package'));
+        return view('packages.show', compact('package'));
     }
 }

@@ -22,13 +22,13 @@
             </div>
         </div>
 
-        <div class="text-center mt-5">
+        <div class=" mt-5">
             <h4 class="fw-bold mb-3">Why Choose Us?</h4>
             <ul class="list-unstyled">
-                <li>✅ Safety and Reliability</li>
-                <li>✅ Comfortable, clean vehicles</li>
-                <li>✅ Experienced and friendly drivers</li>
-                <li>✅ 24/7 Customer Support</li>
+                <li> Safety and Reliability</li>
+                <li> Comfortable, clean vehicles</li>
+                <li> Experienced and friendly drivers</li>
+                <li> 24/7 Customer Support</li>
             </ul>
         </div>
     </div>

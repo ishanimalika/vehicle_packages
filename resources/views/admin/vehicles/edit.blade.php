@@ -30,7 +30,7 @@
         <div class="mb-3">
             <label>Image</label><br>
             @if($vehicle->image)
-                <img src="{{ asset('storage/'.$vehicle->image) }}" width="80"><br><br>
+                <img src="{{ asset('uploads/vehicles/'.$vehicle->image) }}" alt="{{ $vehicle->name }}" width="80"><br><br>
             @endif
             <input type="file" name="image" class="form-control">
         </div>

@@ -27,7 +27,7 @@
                     <td>{{ $driver->id }}</td>
                     <td>
                         @if($driver->photo)
-                            <img src="{{ asset('storage/' . $driver->photo) }}" width="60" class="rounded">
+                            <img src="{{ asset('uploads/drivers/' . $driver->photo) }}" width="60" class="rounded">
                         @else
                             <span class="text-muted">No Photo</span>
                         @endif

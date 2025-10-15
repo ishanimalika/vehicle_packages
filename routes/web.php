@@ -18,8 +18,8 @@ use App\Http\Controllers\Frontend\ContactController;
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/about', [AboutController::class, 'index'])->name('about');
 
-Route::get('/vehicles', [FrontendVehicleController::class, 'index'])->name('vehicles.index');
-Route::get('/vehicles/{id}', [FrontendVehicleController::class, 'show'])->name('vehicles.show');
+Route::get('/vehicles', [FrontendVehicleController::class, 'index'])->name('frontend.vehicles.index');
+Route::get('/vehicles/{id}', [FrontendVehicleController::class, 'show'])->name('frontend.vehicles.show');
 
 Route::get('/gallery', [GalleryController::class, 'index'])->name('gallery');
 

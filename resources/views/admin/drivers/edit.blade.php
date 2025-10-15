@@ -26,7 +26,7 @@
         <div class="mb-3">
             <label>Driver Photo</label><br>
             @if($driver->photo)
-                <img src="{{ asset('storage/' . $driver->photo) }}" width="100" class="mb-2 rounded">
+                <img src="{{ asset('uploads/drivers/' . $driver->photo) }}" width="100" class="mb-2 rounded">
             @else
                 <p>No photo uploaded</p>
             @endif

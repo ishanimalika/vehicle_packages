@@ -22,21 +22,21 @@
             </tr>
         </thead>
         <tbody>
-            @foreach($vehicles as $v)
+            @foreach($vehicles as $vehicle)
             <tr>
-                <td>{{ $v->id }}</td>
-                <td>{{ $v->name }}</td>
-                <td>{{ $v->type }}</td>
-                <td>{{ $v->number_plate }}</td>
-                <td>{{ $v->seats }}</td>
+                <td>{{ $vehicle->id }}</td>
+                <td>{{ $vehicle->name }}</td>
+                <td>{{ $vehicle->type }}</td>
+                <td>{{ $vehicle->number_plate }}</td>
+                <td>{{ $vehicle->seats }}</td>
                 <td>
-                    @if($v->image)
-                        <img src="{{ asset('storage/'.$v->image) }}" width="80">
+                    @if($vehicle->image)
+                        <img src="{{ asset('uploads/vehicles/' . $vehicle->image) }}" width="80">
                     @endif
                 </td>
                 <td>
-                    <a href="{{ route('vehicles.edit', $v->id) }}" class="btn btn-sm btn-warning">Edit</a>
-                    <form action="{{ route('vehicles.destroy', $v->id) }}" method="POST" style="display:inline;">
+                    <a href="{{ route('vehicles.edit', $vehicle->id) }}" class="btn btn-sm btn-warning">Edit</a>
+                    <form action="{{ route('vehicles.destroy', $vehicle->id) }}" method="POST" style="display:inline;">
                         @csrf
                         @method('DELETE')
                         <button class="btn btn-sm btn-danger" onclick="return confirm('Delete this vehicle?')">Delete</button>

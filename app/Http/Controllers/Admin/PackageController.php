@@ -30,7 +30,7 @@ class PackageController extends Controller
     {
         $request->validate([
             'title' => 'required|string|max:255',
-            'description' => 'required|string',
+            'description' => 'required|string', 
             'price' => 'required|numeric',
             'vehicle_id' => 'required|exists:vehicles,id',
             'driver_id' => 'nullable|exists:drivers,id',

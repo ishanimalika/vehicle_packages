@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Models\Vehicle;
 use App\Models\Package;
 use App\Models\Booking;
+use App\Notifications\NewBookingNotification;
+use App\Models\Admin;
 
 class BookingController extends Controller
 {
@@ -23,25 +25,33 @@ class BookingController extends Controller
     }
 
     // Store booking
-    public function store(Request $request)
-    {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'nullable|email',
-            'phone' => 'required|string|max:20',
-            'pickup_location' => 'required|string|max:255',
-            'dropoff_location' => 'nullable|string|max:255',
-            'pickup_date' => 'required|date',
-            'pickup_time' => 'required',
-            'vehicle_id' => 'nullable|exists:vehicles,id',
-            'package_id' => 'nullable|exists:packages,id',
-            'notes' => 'nullable|string',
-        ]);
 
-        Booking::create($request->all());
+public function store(Request $request)
+{
+    $request->validate([
+        'name' => 'required|string|max:255',
+        'email' => 'nullable|email',
+        'phone' => 'required|string|max:20',
+        'pickup_location' => 'required|string|max:255',
+        'dropoff_location' => 'nullable|string|max:255',
+        'pickup_date' => 'required|date',
+        'pickup_time' => 'required',
+        'vehicle_id' => 'nullable|exists:vehicles,id',
+        'package_id' => 'nullable|exists:packages,id',
+        'notes' => 'nullable|string',
+    ]);
 
-        return redirect()->route('booking.success')->with('success', 'Your booking has been submitted successfully!');
+    // ✅ Create booking
+    $booking = Booking::create($request->all());
+
+    // ✅ Notify the first admin (your friend)
+    $admin = Admin::first();
+    if ($admin) {
+        $admin->notify(new NewBookingNotification($booking));
     }
+
+    return redirect()->route('booking.success')->with('success', 'Your booking has been submitted successfully!');
+}
 
     // Success page
     public function success()

@@ -44,7 +44,7 @@
                         <td>{{ $booking->phone }}</td>
                         <td>{{ $booking->pickup_location }}</td>
                         <td>{{ $booking->pickup_date }} {{ $booking->pickup_time }}</td>
-                        <td>{{ $booking->vehicle?->vehicle_name ?? '-' }}</td>
+                        <td>{{ $booking->vehicle?->name ?? '-' }}</td>
                         <td>
                             <form action="{{ route('admin.bookings.updateStatus', $booking->id) }}" method="POST" class="d-flex align-items-center gap-2">
                                 @csrf

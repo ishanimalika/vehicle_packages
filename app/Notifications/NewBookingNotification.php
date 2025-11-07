@@ -12,9 +12,9 @@ class NewBookingNotification extends Notification
 {
     use Queueable;
 
-    protected $booking;
+    public $booking;
 
-    public function __construct(Booking $booking)
+    public function __construct($booking)
     {
         $this->booking = $booking;
     }
@@ -27,6 +27,15 @@ class NewBookingNotification extends Notification
     {
         return ['database'];
     }
+
+        public function toDatabase($notifiable)
+    {
+        return [
+            'message' => 'New booking received from ' . $this->booking->name,
+            'booking_id' => $this->booking->id,
+        ];
+    }
+
 
     /**
      * What will be stored in the database.

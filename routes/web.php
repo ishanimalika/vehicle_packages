@@ -15,6 +15,20 @@ use App\Http\Controllers\Frontend\VehicleController as FrontendVehicleController
 use App\Http\Controllers\Frontend\GalleryController;
 use App\Http\Controllers\Frontend\ContactController;
 
+
+use Illuminate\Support\Facades\Mail;
+
+Route::get('/test-mail', function () {
+    Mail::raw('This is a test email!', function ($message) {
+        $message->to('ishanimalika21@gmail.com')
+                ->subject('Laravel Email Test');
+    });
+
+    return 'Email sent!';
+});
+
+
+
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/about', [AboutController::class, 'index'])->name('about');
 
@@ -33,7 +47,7 @@ Route::get('/admin/logout', [AuthController::class, 'logout'])->name('admin.logo
 
 // Protected admin area
 Route::middleware(['adminauth'])->prefix('admin')->group(function () {
-    Route::get('/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
+    Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
     Route::resource('/vehicles', VehicleController::class);
     Route::resource('/packages', PackageController::class);
     Route::resource('/drivers', DriverController::class);
@@ -42,6 +56,32 @@ Route::middleware(['adminauth'])->prefix('admin')->group(function () {
     Route::get('/bookings/{id}', [AdminBookingController::class, 'show'])->name('admin.booking.show');
     Route::delete('/bookings/{id}', [AdminBookingController::class, 'destroy'])->name('admin.booking.destroy');
     Route::post('/bookings/{id}/status', [AdminBookingController::class, 'updateStatus'])->name('admin.bookings.updateStatus');
+
+
+    Route::get('/notification/read/{id}', function($id) {
+
+    $adminId = session('admin_id'); // ✅ get admin ID from session
+
+    if (!$adminId) {
+        return redirect()->route('admin.login');
+    }
+
+    $admin = \App\Models\Admin::find($adminId);
+
+    if (!$admin) {
+        return back();
+    }
+
+    $notification = $admin->notifications()->where('id', $id)->first();
+
+    if ($notification) {
+        $notification->markAsRead();  
+    }
+
+    return redirect()->back();
+
+})->name('admin.notification.read');
+
 
 });
 

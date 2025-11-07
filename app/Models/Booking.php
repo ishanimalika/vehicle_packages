@@ -33,4 +33,10 @@ class Booking extends Model
     {
         return $this->belongsTo(Package::class);
     }
+
+    public function notifications()
+    {
+        return $this->hasMany(Notification::class);
+    }
+
 }

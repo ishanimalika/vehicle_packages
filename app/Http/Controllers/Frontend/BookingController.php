@@ -9,6 +9,8 @@ use App\Models\Package;
 use App\Models\Booking;
 use App\Notifications\NewBookingNotification;
 use App\Models\Admin;
+use App\Mail\BookingNotificationMail;
+use Illuminate\Support\Facades\Mail;
 
 class BookingController extends Controller
 {
@@ -41,16 +43,21 @@ public function store(Request $request)
         'notes' => 'nullable|string',
     ]);
 
-    // ✅ Create booking
+    // Save booking
     $booking = Booking::create($request->all());
 
-    // ✅ Notify the first admin (your friend)
-    $admin = Admin::first();
+    // Send email to admin
+    Mail::to('ishanimalika21@gmail.com')->send(new BookingNotificationMail($booking));
+
+    $admin = Admin::first(); // or session based admin
+
     if ($admin) {
         $admin->notify(new NewBookingNotification($booking));
     }
 
-    return redirect()->route('booking.success')->with('success', 'Your booking has been submitted successfully!');
+
+    return redirect()->route('booking.success')
+                     ->with('success', 'Your booking has been submitted successfully!');
 }
 
     // Success page

@@ -5,6 +5,7 @@ namespace App\Mail;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
+use App\Models\Booking;
 
 class BookingNotificationMail extends Mailable
 {
@@ -12,7 +13,7 @@ class BookingNotificationMail extends Mailable
 
     public $booking;
 
-    public function __construct($booking)
+    public function __construct(Booking $booking)
     {
         $this->booking = $booking;
     }

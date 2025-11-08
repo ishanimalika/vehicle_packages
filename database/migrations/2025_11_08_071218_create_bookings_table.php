@@ -17,8 +17,8 @@ return new class extends Migration
             $table->string('dropoff_location')->nullable();
             $table->date('pickup_date');
             $table->time('pickup_time');
-            $table->foreignId('vehicle_id')->nullable()->constrained()->onDelete('set null');
-            $table->foreignId('package_id')->nullable()->constrained()->onDelete('set null');
+            $table->unsignedBigInteger('vehicle_id')->nullable();
+            $table->unsignedBigInteger('package_id')->nullable();
             $table->text('notes')->nullable();
             $table->timestamps();
         });

@@ -8,6 +8,30 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container">
         <a href="{{ route('admin.dashboard') }}" class="navbar-brand">GAGANA Tours Admin</a>
+
+        <div class="dropdown me-3">
+    <button class="btn btn-warning position-relative" data-bs-toggle="dropdown">
+        Notifications
+        <span class="badge bg-danger position-absolute top-0 start-100 translate-middle">
+            {{ $count }}
+        </span>
+    </button>
+
+    <ul class="dropdown-menu p-2" style="width: 300px;">
+        @forelse ($notifications as $notification)
+            <li class="border-bottom mb-1 pb-1">
+                <a href="{{ route('admin.notification.read', $notification->id) }}">
+                    <strong>{{ $notification->data['booking_id'] }}</strong><br>
+                    {{ $notification->data['message'] }}
+                </a>
+            </li>
+        @empty
+            <p class="text-center m-0">No new notifications</p>
+        @endforelse
+    </ul>
+</div>
+
+
         <a href="{{ route('admin.logout') }}" class="btn btn-danger">Logout</a>
     </div>
 </nav>

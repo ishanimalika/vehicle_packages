@@ -58,29 +58,26 @@ Route::middleware(['adminauth'])->prefix('admin')->group(function () {
     Route::post('/bookings/{id}/status', [AdminBookingController::class, 'updateStatus'])->name('admin.bookings.updateStatus');
 
 
-    Route::get('/notification/read/{id}', function($id) {
+    Route::get('/notification/read/{id}', function ($id) {
+        $adminId = session('admin_logged_in'); 
+        $admin = \App\Models\Admin::find($adminId);
 
-    $adminId = session('admin_id'); // ✅ get admin ID from session
+        if ($admin) {
+            $notification = $admin->notifications()->where('id', $id)->first();
+            if ($notification) {
+                $notification->markAsRead();
+            }
+        }
 
-    if (!$adminId) {
-        return redirect()->route('admin.login');
-    }
-
-    $admin = \App\Models\Admin::find($adminId);
-
-    if (!$admin) {
         return back();
-    }
+    })->name('admin.notification.read');
 
-    $notification = $admin->notifications()->where('id', $id)->first();
 
-    if ($notification) {
-        $notification->markAsRead();  
-    }
-
-    return redirect()->back();
-
-})->name('admin.notification.read');
+    Route::get('/test-noti', function() {
+    $admin = \App\Models\Admin::first();
+    $admin->notify(new \App\Notifications\NewBookingNotification((object)['name'=>'Test', 'id'=>1]));
+    return "done";
+});
 
 
 });

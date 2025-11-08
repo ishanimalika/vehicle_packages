@@ -6,9 +6,6 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('packages', function (Blueprint $table) {
@@ -16,15 +13,12 @@ return new class extends Migration
             $table->string('title');
             $table->text('description');
             $table->decimal('price', 10, 2);
-            $table->foreignId('vehicle_id')->constrained()->onDelete('cascade');
-            $table->foreignId('driver_id')->constrained()->onDelete('cascade');
+            $table->unsignedBigInteger('vehicle_id');
+            $table->unsignedBigInteger('driver_id')->nullable(); // ✅ add driver_id here
             $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('packages');

@@ -10,9 +10,15 @@ class BookingController extends Controller
 {
     public function index()
     {
-        $bookings = Booking::latest()->get();
+        $admin = \App\Models\Admin::find(session('admin_logged_in'));
+        if ($admin) {
+            $admin->unreadNotifications->markAsRead(); // mark all unread as read
+        }
+
+        $bookings = Booking::all();
         return view('admin.booking.index', compact('bookings'));
     }
+
 
     public function show($id)
     {

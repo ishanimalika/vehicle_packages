@@ -16,13 +16,13 @@ class NewBookingNotification extends Notification
         $this->booking = $booking;
     }
 
-    // ✅ Only database notification
+    // Only database notification
     public function via($notifiable)
     {
         return ['database'];
     }
 
-    // ✅ Data stored in database
+    //  Data stored in database
     public function toDatabase($notifiable)
     {
         return [

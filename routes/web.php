@@ -59,18 +59,19 @@ Route::middleware(['adminauth'])->prefix('admin')->group(function () {
 
 
     Route::get('/notification/read/{id}', function ($id) {
-        $adminId = session('admin_logged_in'); 
+        $adminId = session('admin_logged_in'); // your session key
         $admin = \App\Models\Admin::find($adminId);
 
         if ($admin) {
             $notification = $admin->notifications()->where('id', $id)->first();
             if ($notification) {
-                $notification->markAsRead();
+                $notification->markAsRead(); // mark this notification as read
             }
         }
 
-        return back();
+        return redirect()->route('admin.booking.index'); // redirect to bookings page
     })->name('admin.notification.read');
+
 
 
     Route::get('/test-noti', function() {

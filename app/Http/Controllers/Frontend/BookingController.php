@@ -49,7 +49,8 @@ public function store(Request $request)
     // Send email to admin
     Mail::to('ishanimalika21@gmail.com')->send(new BookingNotificationMail($booking));
 
-    $admin = Admin::first(); // or session based admin
+    //dashboard
+    $admin = Admin::first(); 
 
     if ($admin) {
         $admin->notify(new NewBookingNotification($booking));

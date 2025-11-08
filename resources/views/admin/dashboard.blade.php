@@ -18,11 +18,11 @@
     </button>
 
     <ul class="dropdown-menu p-2" style="width: 300px;">
-        @forelse ($notifications as $notification)
+        @forelse($notifications as $notification)
             <li class="border-bottom mb-1 pb-1">
                 <a href="{{ route('admin.notification.read', $notification->id) }}">
-                    <strong>{{ $notification->data['booking_id'] }}</strong><br>
-                    {{ $notification->data['message'] }}
+                    <strong>Booking ID: {{ $notification->data['booking_id'] ?? 'N/A' }}</strong><br>
+                    {{ $notification->data['message'] ?? 'New booking' }}
                 </a>
             </li>
         @empty

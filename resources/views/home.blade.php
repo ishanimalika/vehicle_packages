@@ -5,62 +5,90 @@
 @section('content')
 <!-- Hero Section -->
     
-    <div class="hero-wrap ftco-degree-bg" style="background-image: url('images/bg_1.jpg');" data-stellar-background-ratio="0.5">
+    <div class="hero-wrap ftco-degree-bg" style="background-image: url('images/bg_2.jpg');" data-stellar-background-ratio="0.5">
       <div class="overlay"></div>
       <div class="container">
         <div class="row no-gutters slider-text justify-content-start align-items-center justify-content-center">
           <div class="col-lg-8 ftco-animate">
           	<div class="text w-100 text-center mb-md-5 pb-md-5">
-	            <h1 class="mb-4">Fast &amp; Easy Way To Rent A Car</h1>
+	            <h1 class="mb-4">Fast &amp; Easy Way To Rent A Car With GAGANA Tours</h1>
 	            <p style="font-size: 18px;">A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts</p>
-	            <a href="https://vimeo.com/45830194" class="icon-wrap popup-vimeo d-flex align-items-center mt-4 justify-content-center">
-	            	<div class="icon d-flex align-items-center justify-content-center">
-	            		<span class="ion-ios-play"></span>
-	            	</div>
-	            	<div class="heading-title ml-5">
-		            	<span>Easy steps for renting a car</span>
-	            	</div>
-	            </a>
             </div>
           </div>
         </div>
       </div>
     </div>
 
-     <section class="ftco-section ftco-no-pt bg-dark">
+	<section class="ftco-section ftco-no-pt bg-light">
     	<div class="container">
     		<div class="row no-gutters">
     			<div class="col-md-12	featured-top">
     				<div class="row no-gutters">
 	  					<div class="col-md-4 d-flex align-items-center">
-	  						<form action="#" class="request-form ftco-animate bg-primary">
+	  				<form action="{{ route('booking.store') }}" class="request-form ftco-animate bg-primary">
 		          		<h2>Make your trip</h2>
-			    				<div class="form-group">
-			    					<label for="" class="label">Pick-up location</label>
-			    					<input type="text" class="form-control" placeholder="City, Airport, Station, etc">
+						 		<div class="form-group">
+			    					<label for="name" class="label">Name *</label>
+			    					<input type="text" name="name" class="form-control" required>
+			    				</div>
+								<div class="form-group">
+			    					<label for="email" class="label">Email</label>
+			    					<input type="email" name="email" class="form-control" >
+			    				</div>
+								<div class="form-group">
+			    					<label for="phone" class="label">Phone</label>
+			    					<input type="text" name="phone" class="form-control" required>
 			    				</div>
 			    				<div class="form-group">
-			    					<label for="" class="label">Drop-off location</label>
-			    					<input type="text" class="form-control" placeholder="City, Airport, Station, etc">
+			    					<label for="pickup_location" class="label">Pick-up Location *</label>
+			    					<input type="text" name="pickup_location" class="form-control" required>
+			    				</div>
+			    				<div class="form-group">
+			    					<label for="dropoff_location" class="label">Drop-off location</label>
+			    					<input type="text" name="dropoff_location" class="form-control" >
 			    				</div>
 			    				<div class="d-flex">
 			    					<div class="form-group mr-2">
-			                <label for="" class="label">Pick-up date</label>
-			                <input type="text" class="form-control" id="book_pick_date" placeholder="Date">
-			              </div>
-			              <div class="form-group ml-2">
-			                <label for="" class="label">Drop-off date</label>
-			                <input type="text" class="form-control" id="book_off_date" placeholder="Date">
-			              </div>
-		              </div>
-		              <div class="form-group">
-		                <label for="" class="label">Pick-up time</label>
-		                <input type="text" class="form-control" id="time_pick" placeholder="Time">
-		              </div>
-			            <div class="form-group">
-			              <input type="submit" value="Rent A Car Now" class="btn btn-secondary py-3 px-4">
-			            </div>
-			    			</form>
+										<label for="pickup_date" class="label">Pick-up date *</label>
+										<input type="text" name="pickup_date" class="form-control" id="book_pick_date" required>
+									</div>
+		                        </div>
+								<div class="form-group">
+									<label for="pickup_time" class="label">Pick-up time</label>
+									<input type="text" name="pickup_time" class="form-control" id="time_pick"  required>
+								</div>
+								<div class="form-group">
+									<label for="vehicle" class="label">Select Vehicle</label>
+									<select name="vehicle_id" class="form-control">
+										<option value="">-- Select Vehicle --</option>
+										@foreach($vehicles as $vehicle)
+											<option value="{{ $vehicle->id }}" 
+												{{ $selectedVehicle == $vehicle->id ? 'selected' : '' }}>
+												{{ $vehicle->name }}
+											</option>
+										@endforeach
+									</select>
+			    				</div>
+								<div class="form-group">
+									<label for="package" class="label">Select Package</label>
+									<select name="package_id" class="form-control">
+										<option value="">-- Select Package --</option>
+										@foreach($packages as $package)
+											<option value="{{ $package->id }}"
+												{{ $selectedPackage == $package->id ? 'selected' : '' }}>
+												{{ $package->title }}
+											</option>
+										@endforeach
+									</select>
+			    				</div>
+								<div class="form-group">
+									<label for="notes" class="label">Additional Notes</label>
+									<textarea name="notes" class="form-control" rows="3"></textarea>
+			    				</div>
+								<div class="form-group">
+									<input type="submit" value="Rent A Car Now" class="btn btn-secondary py-3 px-4">
+								</div>
+							</form>
 	  					</div>
 	  					<div class="col-md-8 d-flex align-items-center">
 	  						<div class="services-wrap rounded-right w-100">
@@ -86,12 +114,12 @@
 					            <div class="services w-100 text-center">
 				              	<div class="icon d-flex align-items-center justify-content-center"><span class="flaticon-rent"></span></div>
 				              	<div class="text w-100">
-					                <h3 class="heading mb-2">Reserve Your Rental Car</h3>
+					                <h3 class="heading mb-2">Reserve Your Package</h3>
 					              </div>
 					            </div>      
 					          </div>
 					        </div>
-					        <p><a href="#" class="btn btn-primary py-3 px-4">Reserve Your Perfect Car</a></p>
+					        <p><a href="{{ route('booking.create') }}" class="btn btn-primary py-3 px-4">Reserve Your Perfect Car</a></p>
 	  						</div>
 	  					</div>
 	  				</div>
@@ -144,10 +172,9 @@
 					<div class="col-md-6 wrap-about ftco-animate">
 	          <div class="heading-section heading-section-white pl-md-5">
 	          	<span class="subheading">About us</span>
-	            <h2 class="mb-4">Welcome to Carbook</h2>
+	            <h2 class="mb-4">Welcome to GAGANA Tours</h2>
 
-	            <p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.</p>
-	            <p>On her way she met a copy. The copy warned the Little Blind Text, that where it came from it would have been rewritten a thousand times and everything that was left from its origin would be the word "and" and the Little Blind Text should turn around and return to its own, safe country. A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.</p>
+	            <p>GAGANA Tours began its journey with a passion for helping travelers explore Sri Lanka comfortably and safely. From humble beginnings, we’ve grown into a trusted name in premium KDH and van rental services. </p>
 	            <p><a href="#" class="btn btn-primary py-3 px-4">Search Vehicle</a></p>
 	          </div>
 					</div>
@@ -226,18 +253,6 @@
         <div class="text-center mt-4">
             <a href="{{ route('frontend.packages.index') }}" class="btn btn-primary">View All Packages</a>
         </div>
-    </div>
-</section>
-
-
-
-
-<!-- Call to Action -->
-<section class="py-5 text-center ">
-    <div class="container">
-        <h2 class="fw-bold">Ready to Start Your Journey?</h2>
-        <p class="mb-4">Book your vehicle today and enjoy a comfortable tour around Sri Lanka.</p>
-        <a href="{{ route('booking.create') }}" class="btn btn-dark btn-lg">Hire a KDH Now</a>
     </div>
 </section>
 
